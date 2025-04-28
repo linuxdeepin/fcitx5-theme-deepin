@@ -1,0 +1,4 @@
+#!/usr/bin/dh-exec
+
+deepin-light /usr/share/fcitx5/themes/
+deepin-dark /usr/share/fcitx5/themes/
