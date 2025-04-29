@@ -9,6 +9,6 @@ Vcs-Browser: https://github.com/linuxdeepin/fcitx5-theme-deepin
 Vcs-Git: https://github.com/linuxdeepin/fcitx5-theme-deepin.git
 
 Package: fcitx5-theme-deepin
-Architecture: any
+Architecture: all
 Depends: fcitx5
 Description: Deepin looklike fcitx5 theme

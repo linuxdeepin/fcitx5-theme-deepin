@@ -1,0 +1,40 @@
+name: Build deb packages
+
+on:
+  workflow_dispatch:
+  workflow_call:
+  pull_request:
+
+concurrency:
+  group: build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install
+        run: |
+          sudo apt-get update
+          sudo apt-get install devscripts dpkg
+          sudo apt build-dep .
+
+      - name: Build
+        run: |
+          dpkg-buildpackage -us -uc -b -d
+          cp ../*.deb .
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: deb
+          path: |
+            *.deb
