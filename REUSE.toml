@@ -1,0 +1,25 @@
+version = 1
+SPDX-PackageName = "fcitx5-theme-deepin"
+SPDX-PackageDownloadLocation = "https://github.com/linuxdeepin/fcitx5-theme-deepin"
+
+# 主题资源（皮肤图片、配置、文档）采用 CC BY-SA 4.0，
+# 版权信息与 debian/copyright 中 `Files: *` 的声明保持一致。
+[[annotations]]
+path = ["deepin-dark/**", "deepin-light/**", "img/**", "README.md", "LICENSE"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = ["xzl01 <xiangzelong@deepin.org>", "Ji, hewen <jihewen@uniontech.com>"]
+SPDX-License-Identifier = "CC-BY-SA-4.0"
+
+# 打包脚本沿用 debian/copyright 中 `Files: debian/*` 的 GPL-2+ 声明。
+[[annotations]]
+path = ["debian/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Cryolitia <liziyao@uniontech.com>"
+SPDX-License-Identifier = "GPL-2.0-or-later"
+
+# CI 配置为组织内通用的工作流文件，与 treeland 等仓库保持一致，声明为 CC0-1.0。
+[[annotations]]
+path = [".github/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "None"
+SPDX-License-Identifier = "CC0-1.0"
