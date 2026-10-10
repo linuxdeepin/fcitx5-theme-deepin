@@ -7,6 +7,10 @@ Copyright: xzl01 <xiangzelong@deepin.org>
            Ji, hewen <jihewen@uniontech.com>
 License: CC-BY-SA-4.0
 
+Files: .github/*
+Copyright: None
+License: CC0-1.0
+
 Files: debian/*
 Copyright: Cryolitia <liziyao@uniontech.com>
 License: GPL-2+
