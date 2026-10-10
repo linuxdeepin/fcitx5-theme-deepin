@@ -5,7 +5,7 @@ SPDX-PackageDownloadLocation = "https://github.com/linuxdeepin/fcitx5-theme-deep
 # 主题资源（皮肤图片、配置、文档）采用 CC BY-SA 4.0，
 # 版权信息与 debian/copyright 中 `Files: *` 的声明保持一致。
 [[annotations]]
-path = ["deepin-dark/**", "deepin-light/**", "img/**", "README.md", "LICENSE"]
+path = ["deepin-dark/**", "deepin-light/**", "img/**", "README*.md", "LICENSE"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = ["xzl01 <xiangzelong@deepin.org>", "Ji, hewen <jihewen@uniontech.com>"]
 SPDX-License-Identifier = "CC-BY-SA-4.0"
