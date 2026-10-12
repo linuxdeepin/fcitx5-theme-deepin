@@ -2,12 +2,22 @@ version = 1
 SPDX-PackageName = "fcitx5-theme-deepin"
 SPDX-PackageDownloadLocation = "https://github.com/linuxdeepin/fcitx5-theme-deepin"
 
-# 主题资源（皮肤图片、配置、文档）采用 CC BY-SA 4.0，
-# 版权信息与 debian/copyright 中 `Files: *` 的声明保持一致。
+# 注意：同一文件被多段注解命中时，reuse 取文件顺序中「最后一段」而不是「最具体的一段」。
+# 因此范围更宽的注解写在前面，更窄的覆盖段写在后面，否则覆盖不生效。
+
+# 主题配置与文档：沿用 debian/copyright 中 `Files: *` 的 xzl01、Ji, hewen 共同署名。
 [[annotations]]
-path = ["deepin-dark/**", "deepin-light/**", "img/**", "README*.md", "LICENSE"]
+path = ["deepin-dark/**", "deepin-light/**", "README*.md"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = ["xzl01 <xiangzelong@deepin.org>", "Ji, hewen <jihewen@uniontech.com>"]
+SPDX-License-Identifier = "CC-BY-SA-4.0"
+
+# 图片资源仅署名 Ji, hewen（与 theme.conf 的 Author 字段、上游 review 意见一致）。
+# 必须放在上一段之后，按「最后一段生效」覆盖 deepin-*/** 对图片的署名。
+[[annotations]]
+path = ["deepin-dark/**.png", "deepin-light/**.png", "img/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "Ji, hewen <jihewen@uniontech.com>"
 SPDX-License-Identifier = "CC-BY-SA-4.0"
 
 # 打包脚本沿用 debian/copyright 中 `Files: debian/*` 的 GPL-2+ 声明。
@@ -17,9 +27,18 @@ precedence = "aggregate"
 SPDX-FileCopyrightText = "Cryolitia <liziyao@uniontech.com>"
 SPDX-License-Identifier = "GPL-2.0-or-later"
 
-# CI 配置为组织内通用的工作流文件，与 treeland 等仓库保持一致，声明为 CC0-1.0。
+# CI 配置为组织内通用的工作流文件，不主张版权。
+# NONE 是 REUSE/SPDX 表示「无版权持有人」的取值；写成 "None" 会被当作一个名为 None 的持有人。
 [[annotations]]
 path = [".github/**"]
 precedence = "aggregate"
-SPDX-FileCopyrightText = "None"
+SPDX-FileCopyrightText = "NONE"
+SPDX-License-Identifier = "CC0-1.0"
+
+# 根 LICENSE 是 CC BY-SA 4.0 法条全文，而该法条正文声明其文本本身以 CC0 释出，
+# 因此不能按主题资源的作者与许可证署名。
+[[annotations]]
+path = ["LICENSE"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "NONE"
 SPDX-License-Identifier = "CC0-1.0"

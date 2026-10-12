@@ -11,6 +11,10 @@ Files: .github/*
 Copyright: None
 License: CC0-1.0
 
+Files: LICENSE
+Copyright: None
+License: CC0-1.0
+
 Files: debian/*
 Copyright: Cryolitia <liziyao@uniontech.com>
 License: GPL-2+
