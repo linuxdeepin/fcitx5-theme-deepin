@@ -1,0 +1,82 @@
+name: Publish AUR package
+
+on:
+  # Tag pushes, not `release: published`: a release created with GITHUB_TOKEN
+  # (as .github/workflows/release.yml does for v* tags) does not emit events,
+  # so a release-triggered workflow would never run for those tags.
+  push:
+    tags:
+      - "v[0-9]*"
+      - "[0-9]*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to publish (e.g. v1.0.0 or 1.0.1)"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aur-publish
+  cancel-in-progress: false
+
+jobs:
+  aur:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Resolve tag and version
+        id: release
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          REF_NAME: ${{ github.ref_name }}
+          INPUT_TAG: ${{ inputs.tag }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            tag="$INPUT_TAG"
+          else
+            tag="$REF_NAME"
+          fi
+          if [ -z "$tag" ]; then
+            echo "::error::No tag to publish."
+            exit 1
+          fi
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+          echo "pkgver=${tag#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Generate PKGBUILD
+        env:
+          TAG: ${{ steps.release.outputs.tag }}
+          PKGVER: ${{ steps.release.outputs.pkgver }}
+        run: bash .github/scripts/generate-pkgbuild.sh > PKGBUILD
+
+      - name: Check AUR credentials
+        id: creds
+        env:
+          AUR_SSH_PRIVATE_KEY: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
+          AUR_USERNAME: ${{ secrets.AUR_USERNAME }}
+          AUR_EMAIL: ${{ secrets.AUR_EMAIL }}
+        run: |
+          if [ -n "$AUR_SSH_PRIVATE_KEY" ] && [ -n "$AUR_USERNAME" ] && [ -n "$AUR_EMAIL" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::AUR credentials are not configured; skipping the AUR push."
+          fi
+
+      - name: Publish AUR package
+        if: steps.creds.outputs.enabled == 'true'
+        uses: KSXGitHub/github-actions-deploy-aur@v4.2.0
+        with:
+          pkgname: fcitx5-theme-deepin
+          pkgbuild: ./PKGBUILD
+          updpkgsums: true
+          commit_username: ${{ secrets.AUR_USERNAME }}
+          commit_email: ${{ secrets.AUR_EMAIL }}
+          ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
+          commit_message: "Update to ${{ steps.release.outputs.tag }}"
+          ssh_keyscan_types: rsa,ecdsa,ed25519
