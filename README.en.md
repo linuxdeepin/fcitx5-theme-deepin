@@ -39,7 +39,7 @@ Multiple lines:
 
 ## Known issues
 
-1. The previous/next page buttons included in the theme have a scaling problem. fcitx5 scales based on dpi rather than screen scale, so on high-dpi screens the images inside the theme get stretched, and on low-resolution screens they look too large and out of place with the rest of the theme. For this reason the buttons are hidden by default in the current version. This will be updated once a better solution is available.
+1. The previous/next page buttons are now SVG vector icons (16×16). fcitx5 renders them as vectors, so they are neither stretched on high-dpi screens nor oversized on low-resolution ones, and the buttons are enabled again. Older versions used bitmaps and hid the buttons by default because of this scaling issue.
 2. If the blurred background feature is enabled, the four rounded corners of the input panel render incorrectly, so the blurred background feature is turned off.
 
 ## References
