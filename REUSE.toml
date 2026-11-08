@@ -15,7 +15,7 @@ SPDX-License-Identifier = "CC-BY-SA-4.0"
 # 图片资源仅署名 Ji, hewen（与 theme.conf 的 Author 字段、上游 review 意见一致）。
 # 必须放在上一段之后，按「最后一段生效」覆盖 deepin-*/** 对图片的署名。
 [[annotations]]
-path = ["deepin-dark/**.png", "deepin-light/**.png", "img/**"]
+path = ["deepin-dark/**.png", "deepin-light/**.png", "deepin-dark/**.svg", "deepin-light/**.svg", "img/**"]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "Ji, hewen <jihewen@uniontech.com>"
 SPDX-License-Identifier = "CC-BY-SA-4.0"
